@@ -1,0 +1,145 @@
+{
+  "version": "1.0.0",
+  "author": "CrakSEO",
+  "authorUrl": "https://github.com/CrakSEO",
+  "icon": "https://raw.githubusercontent.com/CrakSEO/crakseo-mcp-plugins/main/seo-tools-by-crakseo/assets/logo.png",
+  "identifier": "crakseo-ai-visibility",
+  "name": "AI Search Visibility: Brand Mentions in ChatGPT, Perplexity & AI Overviews by CrakSEO",
+  "description": "AI search visibility for SEO and GEO: check brand mentions in ChatGPT, Perplexity and Google AI Overviews, and see which sources and citations AI answers use.",
+  "homepage": "https://crakseo.com/mcp/ai-visibility",
+  "cloudEndpoint": "https://crakseo.com/mcp/ai-visibility",
+  "tags": [
+    "ai-visibility",
+    "ai-search-visibility",
+    "brand-mentions"
+  ],
+  "tools": [
+    {
+      "name": "get_api_credit_balance",
+      "description": "Free: API credit balance, availability and pricing for SEO data calls. Call first to confirm the connection.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "get_ai_overview_sources",
+      "description": "AI Overview sources: whether Google shows an AI Overview for a keyword, its text, every page it cites, and whether a given domain is cited. Costs API credits per call.",
+      "inputSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "keyword": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200,
+            "description": "Search query exactly as a user would type it."
+          },
+          "country": {
+            "default": "US",
+            "description": "Two-letter country code of the search market, for example US, GB, DE or IN. Default US.",
+            "type": "string",
+            "pattern": "^[A-Za-z]{2}$"
+          },
+          "language": {
+            "default": "en",
+            "description": "Language code of the search market, for example en, de or pt-BR. Default en.",
+            "type": "string",
+            "pattern": "^[a-z]{2}(-[A-Za-z]{2,4})?$"
+          },
+          "location": {
+            "description": "Optional exact location name for city-level results, for example \"Austin,Texas,United States\". Overrides country.",
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 120
+          },
+          "device": {
+            "default": "desktop",
+            "description": "Device to emulate. Default desktop.",
+            "type": "string",
+            "enum": [
+              "desktop",
+              "mobile"
+            ]
+          },
+          "domain": {
+            "description": "Optional domain to check for a citation, for example example.com.",
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 253,
+            "pattern": "^(https?:\\/\\/)?[A-Za-z0-9.-]+\\.[A-Za-z]{2,}(\\/.*)?$"
+          }
+        },
+        "required": [
+          "keyword"
+        ]
+      }
+    },
+    {
+      "name": "check_chatgpt_brand_mentions",
+      "description": "ChatGPT brand mentions: ask ChatGPT (with web search) a buyer's question and report whether it mentions your brand, which sources it cites, and whether your domain is cited. Costs API credits per call.",
+      "inputSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "prompt": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 500,
+            "description": "The question a buyer would ask, for example \"best seo tools for agencies\"."
+          },
+          "brand": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 100,
+            "description": "Brand name to look for in the answer."
+          },
+          "domain": {
+            "description": "Optional brand domain to look for among cited sources.",
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 253,
+            "pattern": "^(https?:\\/\\/)?[A-Za-z0-9.-]+\\.[A-Za-z]{2,}(\\/.*)?$"
+          }
+        },
+        "required": [
+          "prompt",
+          "brand"
+        ]
+      }
+    },
+    {
+      "name": "check_perplexity_brand_mentions",
+      "description": "Perplexity brand mentions: ask Perplexity a buyer's question and report whether it mentions your brand, which sources it cites, and whether your domain is cited. Costs API credits per call.",
+      "inputSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "prompt": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 500,
+            "description": "The question a buyer would ask, for example \"best seo tools for agencies\"."
+          },
+          "brand": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 100,
+            "description": "Brand name to look for in the answer."
+          },
+          "domain": {
+            "description": "Optional brand domain to look for among cited sources.",
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 253,
+            "pattern": "^(https?:\\/\\/)?[A-Za-z0-9.-]+\\.[A-Za-z]{2,}(\\/.*)?$"
+          }
+        },
+        "required": [
+          "prompt",
+          "brand"
+        ]
+      }
+    }
+  ]
+}
